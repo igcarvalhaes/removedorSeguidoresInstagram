@@ -1,160 +1,429 @@
-# Script Remover Seguidores Instagram
+# Script Remover Seguidores Instagram v2.7
 
-Este script JavaScript permite remover seguidores do Instagram de forma automatizada e humanizada, evitando detecção pelos sistemas anti-bot da Meta.
+Script JavaScript avançado para remover seguidores e executar unfollow inteligente no Instagram de forma automatizada e humanizada, evitando detecção pelos sistemas anti-bot da Meta.
 
 ## ⚠️ AVISO IMPORTANTE
 
-- Use este script por sua própria conta e risco
-- Respeite os termos de uso do Instagram
-- O uso excessivo pode resultar em limitações na sua conta
-- Teste primeiro com poucos seguidores
+- **Use este script por sua própria conta e risco**
+- **Respeite os termos de uso do Instagram**
+- **O uso excessivo pode resultar em limitações na sua conta**
+- **Teste primeiro com poucos seguidores**
+- **Este script é fornecido apenas para fins educacionais**
 
-## 🚀 Como Usar
+## 🚀 Recursos Principais
 
-### 1. Preparação
+### 📊 **Duas Funcionalidades Principais:**
 
-1. Acesse sua conta do Instagram no navegador
-2. Vá para `https://www.instagram.com/[seunome]/followers/`
-3. Aguarde o modal com a lista de seguidores carregar
+1. **🔥 Remoção de Seguidores** - Remove seguidores da sua lista
+2. **🧠 Unfollow Inteligente** - Para de seguir pessoas que não te seguem de volta
 
-### 2. Execução
+### 🛡️ **Recursos Anti-Detecção:**
 
-1. Abra o console do navegador (pressione `F12` e vá para a aba "Console")
-2. Copie todo o conteúdo do arquivo `remover-seguidores.js`
-3. Cole no console e pressione `Enter`
-4. Execute o comando: `iniciarRemocaoSeguidores()`
+- ✅ **Simulação humana completa** - Movimentos de mouse, hover, cliques detalhados
+- ⌨️ **Digitação ultra-realística** - Eventos de teclado completos (keydown → keypress → input → keyup)
+- 🎯 **Timing humanizado** - Delays aleatórios e pausas ocasionais
+- 🔧 **Eventos nativos** - Usa Object.defineProperty para simular entrada natural
+- 📱 **Compatibilidade total** - Funciona em desktop e mobile
 
-### 3. Comandos Disponíveis
+### ⚙️ **Configurações Inteligentes:**
+
+- 🔄 **Sem limite de sessão** - Processa lista completa automaticamente
+- ⏸️ **Pausas estratégicas** - 30-60 segundos a cada 5 ações
+- 🧹 **Limpeza automática** - Usa botão nativo do Instagram quando disponível
+- 📊 **Logs detalhados** - Acompanhe todo o progresso em tempo real
+
+## 📋 Instalação e Uso
+
+### 🎯 **Remoção de Seguidores**
+
+1. **Acesse a página de seguidores:**
+
+   ```
+   https://www.instagram.com/[seuusuario]/followers/
+   ```
+
+2. **Abra o console do navegador:**
+
+   - Pressione `F12`
+   - Vá para a aba "Console"
+
+3. **Execute o script:**
+   ```javascript
+   // Cole o conteúdo completo do arquivo remover-seguidores.js
+   // Depois execute:
+   iniciarRemocaoSeguidores();
+   ```
+
+### 🧠 **Unfollow Inteligente**
+
+1. **Baixe seus dados do Instagram:**
+
+   - Acesse Instagram → Configurações → Privacidade e Segurança
+   - Clique em "Baixar dados"
+   - Escolha formato **HTML** e solicite o download
+   - Aguarde o email com o link para download
+   - Baixe e extraia o arquivo ZIP
+
+2. **Acesse a página de following:**
+
+   ```
+   https://www.instagram.com/[seuusuario]/following/
+   ```
+
+3. **Execute o script:**
+
+   ```javascript
+   // Cole o script no console e execute:
+   executarUnfollowInteligente();
+   ```
+
+4. **Selecione a pasta de dados:**
+   - Quando solicitado, selecione a pasta `instagram-[seuusuario]-data`
+   - O script analisará automaticamente e iniciará o unfollow
+
+## 🎮 Comandos Disponíveis
+
+### 📊 **Remoção de Seguidores:**
 
 ```javascript
-// Iniciar remoção
+// Iniciar remoção de seguidores
 iniciarRemocaoSeguidores();
 
 // Parar execução
 pararRemocaoSeguidores();
+```
 
+### 🧠 **Unfollow Inteligente:**
+
+```javascript
+// Processo completo: análise + unfollow automático
+executarUnfollowInteligente();
+
+// Apenas analisar dados (sem fazer unfollow)
+analisarDadosInstagram();
+
+// Parar unfollow inteligente
+pararUnfollowInteligente();
+
+// Unfollow de lista específica
+unfollowLista(["usuario1", "usuario2", "usuario3"]);
+```
+
+### ⚙️ **Configuração:**
+
+```javascript
 // Configurar parâmetros
 configurarScript({
-  maxRemocoes: 30, // Máximo de remoções por sessão
-  pausaACada: 5, // Pausa longa a cada X remoções
+  maxRemocoes: Infinity, // Sem limite (padrão)
+  pausaACada: 5, // Pausa a cada X ações
   delays: {
-    entreCliques: { min: 3000, max: 6000 }, // Delay entre cliques
+    entreCliques: { min: 2000, max: 5000 }, // Entre cliques
+    aposConfirmacao: { min: 1500, max: 3000 }, // Após confirmação
+    pausaLonga: { min: 30000, max: 60000 }, // Pausa estratégica
   },
 });
 ```
 
-## ⚙️ Configurações Padrão
+## 📖 Exemplos Práticos
 
-- **Máximo de remoções por sessão**: 50
-- **Pausa longa a cada**: 10 remoções
-- **Delay entre cliques**: 2-5 segundos
-- **Delay após confirmação**: 1.5-3 segundos
-- **Pausa longa**: 30-60 segundos
-
-## 🛡️ Recursos de Proteção
-
-### Humanização
-
-- Delays aleatórios entre ações
-- Simulação de movimento do mouse
-- Pausas estratégicas durante a execução
-- Scroll suave para carregar mais seguidores
-
-### Detecção de Erros
-
-- Para automaticamente após 3 erros consecutivos
-- Limite de remoções por sessão
-- Log detalhado de todas as ações
-
-### Configurabilidade
-
-- Todos os timings são configuráveis
-- Limites ajustáveis conforme necessidade
-- Possibilidade de parar a qualquer momento
-
-## 📊 Monitoramento
-
-O script fornece feedback em tempo real:
-
-```
-🚀 Iniciando remoção de seguidores...
-🎯 Tentando remover seguidor...
-✅ Seguidor removido! Total: 1
-⏸️ Pausa estratégica de 45s após 10 remoções...
-🎉 Processo finalizado!
-📈 Relatório: 25 removidos, 0 erros
-```
-
-## 🔧 Personalização Avançada
-
-### Exemplo de configuração conservadora:
+### 🚀 **Exemplo 1: Unfollow Inteligente Básico**
 
 ```javascript
+// Configuração conservadora para iniciantes
 configurarScript({
-  maxRemocoes: 20,
   pausaACada: 3,
   delays: {
-    entreCliques: { min: 4000, max: 8000 },
+    entreCliques: { min: 3000, max: 6000 },
     pausaLonga: { min: 60000, max: 120000 },
   },
 });
+
+// Executar unfollow inteligente
+executarUnfollowInteligente();
 ```
 
-### Exemplo de configuração mais rápida:
+### 🔍 **Exemplo 2: Apenas Análise (sem unfollow)**
 
 ```javascript
+// Analisar dados sem fazer unfollow
+analisarDadosInstagram().then((resultado) => {
+  console.log(`👥 Você tem ${resultado.seguidores.length} seguidores`);
+  console.log(`➡️ Você segue ${resultado.seguindo.length} pessoas`);
+  console.log(`💔 ${resultado.naoSeguemDeVolta.length} não seguem de volta`);
+
+  // Salvar lista para uso posterior
+  window.listaNaoSegueDeVolta = resultado.naoSeguemDeVolta;
+});
+```
+
+### 📋 **Exemplo 3: Unfollow de Lista Específica**
+
+```javascript
+// Unfollow apenas de usuários específicos
+const usuariosParaUnfollow = ["usuario1", "usuario2", "usuario3"];
+
+unfollowLista(usuariosParaUnfollow);
+```
+
+### ⚡ **Exemplo 4: Configuração Rápida**
+
+```javascript
+// Para usuários experientes (use com cuidado!)
 configurarScript({
-  maxRemocoes: 100,
-  pausaACada: 15,
+  pausaACada: 10,
   delays: {
     entreCliques: { min: 1500, max: 3000 },
     pausaLonga: { min: 20000, max: 40000 },
   },
 });
+
+executarUnfollowInteligente();
 ```
 
-## 🐛 Solução de Problemas
+### 🛡️ **Exemplo 5: Configuração Ultra-Segura**
 
-### Script não encontra botões
+```javascript
+// Máxima segurança para contas sensíveis
+configurarScript({
+  pausaACada: 2,
+  delays: {
+    entreCliques: { min: 5000, max: 10000 },
+    pausaLonga: { min: 120000, max: 180000 }, // 2-3 minutos
+  },
+});
 
-- Verifique se está na página correta de seguidores
-- Aguarde a página carregar completamente
-- Recarregue a página se necessário
+executarUnfollowInteligente();
+```
 
-### Muitos erros consecutivos
+## 🔧 Configurações Detalhadas
 
-- Diminua a velocidade aumentando os delays
-- Reduza o número máximo de remoções
-- Faça pausas mais longas
+### ⚙️ **Parâmetros Principais:**
 
-### Instagram detecta atividade suspeita
+| Parâmetro         | Padrão          | Descrição                               |
+| ----------------- | --------------- | --------------------------------------- |
+| `maxRemocoes`     | `Infinity`      | Máximo de ações por sessão (sem limite) |
+| `pausaACada`      | `5`             | Pausa longa a cada X ações              |
+| `entreCliques`    | `2000-5000ms`   | Delay entre cliques                     |
+| `aposConfirmacao` | `1500-3000ms`   | Delay após confirmação                  |
+| `pausaLonga`      | `30000-60000ms` | Pausa estratégica (30-60s)              |
 
-- Pare o script imediatamente
-- Aguarde algumas horas antes de tentar novamente
-- Use configurações mais conservadoras
+### 🎯 **Configurações Recomendadas:**
 
-## 📝 Notas Técnicas
+**Para iniciantes:**
 
-- O script usa seletores CSS específicos para encontrar os botões
-- Implementa delays aleatórios para simular comportamento humano
-- Faz scroll automático para carregar mais seguidores
-- Monitora erros e para automaticamente se necessário
+```javascript
+{
+  pausaACada: 3,
+  delays: {
+    entreCliques: { min: 3000, max: 6000 },
+    pausaLonga: { min: 60000, max: 120000 }
+  }
+}
+```
+
+**Para usuários experientes:**
+
+```javascript
+{
+  pausaACada: 5,
+  delays: {
+    entreCliques: { min: 2000, max: 4000 },
+    pausaLonga: { min: 30000, max: 60000 }
+  }
+}
+```
+
+## 📊 Monitoramento e Logs
+
+### 🎯 **Logs do Unfollow Inteligente:**
+
+```
+🧠 Iniciando unfollow inteligente...
+📁 37 arquivos encontrados
+✅ Arquivos encontrados, analisando...
+👥 Você tem 1250 seguidores
+➡️ Você segue 890 pessoas
+💔 156 pessoas não seguem você de volta:
+1. usuario_exemplo1
+2. usuario_exemplo2
+...
+
+🎯 Preparando unfollow de 156 pessoas...
+✅ Campo de pesquisa encontrado, iniciando processo...
+
+🔍 Pesquisando por usuario_exemplo1...
+⌨️ Digitação completa (15 caracteres): "usuario_exemplo1"
+✅ Encontrado botão "Seguindo" para usuario_exemplo1, processando...
+✅ Unfollow realizado para usuario_exemplo1
+📊 Progresso: 1/156
+
+⏸️ Pausa estratégica de 45s após 5 unfollows...
+🛡️ Aplicando regras de segurança para evitar detecção
+
+🎉 Unfollow inteligente finalizado!
+📈 Relatório final: 156 unfollows realizados, 3 erros
+```
+
+### 🔍 **Logs da Remoção de Seguidores:**
+
+```
+🚀 Iniciando remoção de seguidores...
+📊 Configurações: Max ∞ remoções, pausa a cada 5
+
+🎯 Tentando remover seguidor...
+✅ Seguidor removido! Total: 1
+
+⏸️ Pausa estratégica de 52s após 5 remoções...
+
+🎉 Processo finalizado!
+📈 Relatório: 25 removidos, 0 erros
+```
+
+## 🛠️ Solução de Problemas
+
+### ❌ **Problemas Comuns:**
+
+**Script não encontra botões:**
+
+- ✅ Verifique se está na página correta
+- ✅ Aguarde a página carregar completamente
+- ✅ Recarregue a página se necessário
+
+**Campo de pesquisa não funciona:**
+
+- ✅ Verifique se está na página `/following/`
+- ✅ Certifique-se que a lista carregou
+- ✅ Teste pesquisar manualmente primeiro
+
+**Instagram detecta atividade suspeita:**
+
+- ✅ Pare o script imediatamente
+- ✅ Aguarde algumas horas antes de tentar novamente
+- ✅ Use configurações mais conservadoras
+
+**Dados do Instagram não encontrados:**
+
+- ✅ Certifique-se que baixou no formato HTML
+- ✅ Extraia completamente o arquivo ZIP
+- ✅ Procure pelos arquivos `followers_1.html` e `following.html`
+
+### 🔧 **Comandos de Emergência:**
+
+```javascript
+// Parar qualquer execução imediatamente
+pararRemocaoSeguidores();
+pararUnfollowInteligente();
+
+// Verificar se algo está executando
+console.log(removerSeguidores.isRunning);
+
+// Limpar campo de pesquisa manualmente
+removerSeguidores.limparPesquisa();
+```
+
+## 💡 Dicas Importantes
+
+### 🎯 **Melhores Práticas:**
+
+1. **🧪 Comece devagar** - Use configurações conservadoras
+2. **📊 Monitore sempre** - Acompanhe os logs durante execução
+3. **⏸️ Faça pausas** - Pausas longas entre sessões
+4. **🔍 Teste primeiro** - Teste com poucos itens
+5. **💾 Faça backup** - Salve listas importantes antes de usar
+
+### ⚠️ **Uso Responsável:**
+
+- **Não abuse** - Não execute várias vezes seguidas
+- **Seja paciente** - Deixe o script trabalhar devagar
+- **Monitore limites** - Instagram pode aplicar rate limits
+- **Use com moderação** - Ações excessivas chamam atenção
+
+### 🚫 **Evite:**
+
+- ❌ Executar múltiplas instâncias simultaneamente
+- ❌ Usar em contas comerciais importantes sem teste
+- ❌ Modificar configurações durante execução
+- ❌ Usar configurações muito agressivas
 
 ## 🔒 Segurança e Privacidade
 
-- O script roda apenas no seu navegador
-- Não coleta nem envia dados para servidores externos
-- Não armazena informações da sua conta
-- Todo o processamento é local
+### 🛡️ **Garantias de Segurança:**
 
-## 💡 Dicas de Uso
+- ✅ **100% Local** - Roda apenas no seu navegador
+- ✅ **Sem servidores** - Não envia dados para lugar nenhum
+- ✅ **Sem coleta** - Não armazena informações da sua conta
+- ✅ **Código aberto** - Você pode verificar todo o código
+- ✅ **Sem instalação** - Não instala nada no seu sistema
 
-1. **Comece devagar**: Use configurações conservadoras no início
-2. **Monitore**: Acompanhe os logs durante a execução
-3. **Pausas**: Faça pausas longas entre sessões
-4. **Teste**: Teste com poucos seguidores primeiro
-5. **Backup**: Considere fazer backup da lista de seguidores antes
+### 🔐 **Proteção de Dados:**
+
+- Seus dados do Instagram permanecem no seu computador
+- Nenhuma informação é transmitida pela internet
+- O script apenas automatiza ações que você faria manualmente
+- Não armazena senhas ou tokens de acesso
+
+## 📱 Compatibilidade
+
+### 🌐 **Navegadores Suportados:**
+
+- ✅ Chrome (Recomendado)
+- ✅ Firefox
+- ✅ Edge
+- ✅ Safari
+- ✅ Opera
+
+### 💻 **Sistemas Operacionais:**
+
+- ✅ Windows
+- ✅ macOS
+- ✅ Linux
+- ✅ Chrome OS
+
+### 📱 **Dispositivos:**
+
+- ✅ Desktop/Laptop (Recomendado)
+- ⚠️ Tablet (Funciona, mas pode ser instável)
+- ❌ Smartphone (Não recomendado - tela pequena)
+
+## 🆕 Novidades da Versão 2.7
+
+### ⚡ **v2.7 - Sem Limites:**
+
+- 🔄 **Sem limite de sessão** - Processa lista completa automaticamente
+- 🚫 **Removida verificação de erros consecutivos** - Continua mesmo com falhas pontuais
+- ⚙️ **Configuração padrão otimizada** - Melhor experiência out-of-the-box
+
+### 🎯 **v2.6 - Otimizado:**
+
+- ⚡ **Digitação 2x mais rápida** (60-150ms entre caracteres)
+- 🚫 **Removida verificação desnecessária** de lista filtrada
+- ⏱️ **Tempos de espera otimizados** para máxima eficiência
+- 📈 **Logs reduzidos** para melhor performance
+
+### 🔥 **v2.5 - Anti-Detecção Avançada:**
+
+- 🚫 **Evita alterar .value diretamente** - Instagram não detecta
+- ⌨️ **Sequência keydown → keypress → input → keyup** PERFEITA
+- 🖱️ **Usa botão de limpar nativo** do Instagram quando disponível
+- 🔧 **Object.defineProperty** para simular entrada natural
+
+## 📞 Suporte
+
+Se você encontrar problemas ou tiver dúvidas:
+
+1. **Leia esta documentação completamente**
+2. **Verifique a seção "Solução de Problemas"**
+3. **Teste com configurações mais conservadoras**
+4. **Verifique se está na página correta**
+
+## ⚖️ Disclaimer Legal
+
+- Este script é fornecido **"como está"** sem garantias
+- O uso é de **total responsabilidade do usuário**
+- Não nos responsabilizamos por **qualquer consequência** do uso
+- **Respeite sempre** os termos de serviço do Instagram
+- Use apenas para **fins educacionais e pessoais**
 
 ---
 
-**Disclaimer**: Este script é fornecido apenas para fins educacionais. O uso é de total responsabilidade do usuário.
+**Versão atual: 2.7** | **Última atualização: Julho 2025**
