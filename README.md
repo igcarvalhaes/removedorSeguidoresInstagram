@@ -29,6 +29,7 @@ Script JavaScript avançado para remover seguidores e executar unfollow intelige
 
 - 🔄 **Sem limite de sessão** - Processa lista completa automaticamente
 - ⏸️ **Pausas estratégicas** - 30-60 segundos a cada 5 ações
+- 🛡️ **Cooldown de segurança** - 10 minutos obrigatórios a cada 50 ações
 - 🧹 **Limpeza automática** - Usa botão nativo do Instagram quando disponível
 - 📊 **Logs detalhados** - Acompanhe todo o progresso em tempo real
 
@@ -116,6 +117,8 @@ unfollowLista(["usuario1", "usuario2", "usuario3"]);
 configurarScript({
   maxRemocoes: Infinity, // Sem limite (padrão)
   pausaACada: 5, // Pausa a cada X ações
+  cooldownACada: 50, // Cooldown de segurança a cada X ações
+  cooldownDuracao: 10 * 60 * 1000, // Duração do cooldown (10 min)
   delays: {
     entreCliques: { min: 2000, max: 5000 }, // Entre cliques
     aposConfirmacao: { min: 1500, max: 3000 }, // Após confirmação
@@ -186,6 +189,7 @@ executarUnfollowInteligente();
 // Máxima segurança para contas sensíveis
 configurarScript({
   pausaACada: 2,
+  cooldownACada: 25, // Cooldown mais frequente
   delays: {
     entreCliques: { min: 5000, max: 10000 },
     pausaLonga: { min: 120000, max: 180000 }, // 2-3 minutos
@@ -203,6 +207,8 @@ executarUnfollowInteligente();
 | ----------------- | --------------- | --------------------------------------- |
 | `maxRemocoes`     | `Infinity`      | Máximo de ações por sessão (sem limite) |
 | `pausaACada`      | `5`             | Pausa longa a cada X ações              |
+| `cooldownACada`   | `50`            | Cooldown de segurança a cada X ações    |
+| `cooldownDuracao` | `600000ms`      | Duração do cooldown (10 minutos)        |
 | `entreCliques`    | `2000-5000ms`   | Delay entre cliques                     |
 | `aposConfirmacao` | `1500-3000ms`   | Delay após confirmação                  |
 | `pausaLonga`      | `30000-60000ms` | Pausa estratégica (30-60s)              |
@@ -233,7 +239,68 @@ executarUnfollowInteligente();
 }
 ```
 
-## 📊 Monitoramento e Logs
+## �️ Sistema de Cooldown de Segurança
+
+### 🔒 **Proteção Automática contra Detecção**
+
+O script implementa um **sistema de cooldown obrigatório** que pausa automaticamente a cada 50 ações por 10 minutos. Este é um mecanismo crucial de segurança:
+
+#### ⚙️ **Como Funciona:**
+
+1. **Contador Automático:** A cada ação (unfollow/remoção), incrementa contador
+2. **Trigger de Segurança:** Ao atingir 50 ações, pausa obrigatória
+3. **Cooldown Progressivo:** 10 minutos com progresso visual em 20 intervalos
+4. **Retomada Automática:** Continua processo após cooldown completo
+
+#### 🎯 **Configurações de Cooldown:**
+
+```javascript
+configurarScript({
+  cooldownACada: 50, // Trigger: pausa a cada 50 ações
+  cooldownDuracao: 10 * 60 * 1000, // Duração: 10 minutos
+});
+
+// Configuração conservadora (mais segura)
+configurarScript({
+  cooldownACada: 25, // Pausa a cada 25 ações
+  cooldownDuracao: 15 * 60 * 1000, // 15 minutos de pausa
+});
+```
+
+#### 🚫 **Interrupção Durante Cooldown:**
+
+```javascript
+// Para interromper durante cooldown
+pararRemocaoSeguidores();
+// ou
+pararUnfollowInteligente();
+
+// Verificação: "🛑 Cooldown interrompido pelo usuário"
+```
+
+#### 📊 **Exemplo de Log de Cooldown:**
+
+```
+🛡️ COOLDOWN DE SEGURANÇA: Aguardando 10 minutos após 50 unfollows...
+⏰ Isso ajuda a evitar detecção pela Meta
+🕐 Início do cooldown: 14:32:15
+⏳ Cooldown: 5% completo (9 min restantes)
+⏳ Cooldown: 25% completo (7 min restantes)
+⏳ Cooldown: 50% completo (5 min restantes)
+⏳ Cooldown: 75% completo (2 min restantes)
+⏳ Cooldown: 100% completo (0 min restantes)
+✅ Cooldown finalizado às 14:42:15
+🔄 Retomando processo de unfollow...
+```
+
+### 🎯 **Por que o Cooldown é Importante:**
+
+- **🛡️ Evita Rate Limiting:** Instagram tem limites de ações por tempo
+- **🤖 Simula Comportamento Humano:** Pausas longas são naturais
+- **⚠️ Previne Banimento:** Reduz chances de detecção automática
+- **📈 Maior Taxa de Sucesso:** Contas protegidas duram mais
+
+## �📊 Monitoramento e Logs
 
 ### 🎯 **Logs do Unfollow Inteligente:**
 
@@ -260,6 +327,18 @@ executarUnfollowInteligente();
 ⏸️ Pausa estratégica de 45s após 5 unfollows...
 🛡️ Aplicando regras de segurança para evitar detecção
 
+🛡️ COOLDOWN DE SEGURANÇA: Aguardando 10 minutos após 50 unfollows...
+⏰ Isso ajuda a evitar detecção pela Meta
+🕐 Início do cooldown: 14:32:15
+⏳ Cooldown: 5% completo (9 min restantes)
+⏳ Cooldown: 10% completo (9 min restantes)
+⏳ Cooldown: 15% completo (8 min restantes)
+...
+⏳ Cooldown: 95% completo (0 min restantes)
+⏳ Cooldown: 100% completo (0 min restantes)
+✅ Cooldown finalizado às 14:42:15
+🔄 Retomando processo de unfollow...
+
 🎉 Unfollow inteligente finalizado!
 📈 Relatório final: 156 unfollows realizados, 3 erros
 ```
@@ -274,6 +353,16 @@ executarUnfollowInteligente();
 ✅ Seguidor removido! Total: 1
 
 ⏸️ Pausa estratégica de 52s após 5 remoções...
+
+🛡️ COOLDOWN DE SEGURANÇA: Aguardando 10 minutos após 50 unfollows...
+⏰ Isso ajuda a evitar detecção pela Meta
+🕐 Início do cooldown: 15:45:30
+⏳ Cooldown: 25% completo (7 min restantes)
+⏳ Cooldown: 50% completo (5 min restantes)
+⏳ Cooldown: 75% completo (2 min restantes)
+⏳ Cooldown: 100% completo (0 min restantes)
+✅ Cooldown finalizado às 15:55:30
+🔄 Retomando processo de unfollow...
 
 🎉 Processo finalizado!
 📈 Relatório: 25 removidos, 0 erros
@@ -300,6 +389,19 @@ executarUnfollowInteligente();
 - ✅ Pare o script imediatamente
 - ✅ Aguarde algumas horas antes de tentar novamente
 - ✅ Use configurações mais conservadoras
+- ✅ Reduza o `cooldownACada` para pausas mais frequentes
+
+**Cooldown muito longo ou frequente:**
+
+- ✅ Aumente `cooldownACada` para menos pausas (ex: 75 ou 100)
+- ✅ Reduza `cooldownDuracao` para pausas mais curtas (ex: 5 minutos)
+- ⚠️ **Cuidado:** Configurações muito agressivas aumentam o risco
+
+**Script parou durante cooldown:**
+
+- ✅ É normal - cooldown é obrigatório para segurança
+- ✅ Aguarde o progresso chegar a 100%
+- ✅ Para interromper, use `pararRemocaoSeguidores()`
 
 **Dados do Instagram não encontrados:**
 
@@ -330,6 +432,8 @@ removerSeguidores.limparPesquisa();
 3. **⏸️ Faça pausas** - Pausas longas entre sessões
 4. **🔍 Teste primeiro** - Teste com poucos itens
 5. **💾 Faça backup** - Salve listas importantes antes de usar
+6. **🛡️ Respeite o cooldown** - NÃO interrompa durante cooldowns
+7. **📈 Configure limites** - Use `cooldownACada` menor para mais segurança
 
 ### ⚠️ **Uso Responsável:**
 
@@ -387,11 +491,13 @@ removerSeguidores.limparPesquisa();
 
 ## 🆕 Novidades da Versão 2.7
 
-### ⚡ **v2.7 - Sem Limites:**
+### ⚡ **v2.7 - Sem Limites + Cooldown de Segurança:**
 
 - 🔄 **Sem limite de sessão** - Processa lista completa automaticamente
-- 🚫 **Removida verificação de erros consecutivos** - Continua mesmo com falhas pontuais
+- �️ **Sistema de Cooldown** - 10 minutos obrigatórios a cada 50 ações
+- �🚫 **Removida verificação de erros consecutivos** - Continua mesmo com falhas pontuais
 - ⚙️ **Configuração padrão otimizada** - Melhor experiência out-of-the-box
+- 📊 **Progresso visual do cooldown** - 20 intervalos com tempo restante
 
 ### 🎯 **v2.6 - Otimizado:**
 
