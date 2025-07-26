@@ -26,6 +26,8 @@ class RemoverSeguidoresInstagram {
     // Configurações gerais
     this.maxRemocoesPorSessao = Infinity; // Sem limite - processa lista completa
     this.pausaACada = 5; // Pausa longa a cada X remoções
+    this.cooldownACada = 50; // Cooldown de 10 minutos a cada 50 unfollows
+    this.cooldownDuracao = 10 * 60 * 1000; // 10 minutos em milissegundos
   }
 
   // Gera delay aleatório entre min e max
@@ -207,6 +209,37 @@ class RemoverSeguidoresInstagram {
             );
             await this.aguardar(pausaLonga);
           }
+
+          // Cooldown de 10 minutos a cada 50 unfollows
+          if (this.removidos % this.cooldownACada === 0 && this.removidos > 0) {
+            console.log(
+              `🛡️ COOLDOWN DE SEGURANÇA: Aguardando 10 minutos após ${this.removidos} unfollows...`
+            );
+            console.log("⏰ Isso ajuda a evitar detecção pela Meta");
+            console.log(
+              `🕐 Início do cooldown: ${new Date().toLocaleTimeString()}`
+            );
+
+            // Mostra progresso do cooldown
+            const intervalos = 20; // 20 intervalos de 30 segundos
+            const intervaloTempo = this.cooldownDuracao / intervalos;
+
+            for (let i = 1; i <= intervalos; i++) {
+              await this.aguardar(intervaloTempo);
+              const progresso = Math.round((i / intervalos) * 100);
+              const tempoRestante = Math.round(
+                (intervalos - i) * (intervaloTempo / 1000 / 60)
+              );
+              console.log(
+                `⏳ Cooldown: ${progresso}% completo (${tempoRestante} min restantes)`
+              );
+            }
+
+            console.log(
+              `✅ Cooldown finalizado às ${new Date().toLocaleTimeString()}`
+            );
+            console.log("🔄 Retomando processo de unfollow...");
+          }
         }
 
         // Delay entre tentativas
@@ -237,11 +270,15 @@ class RemoverSeguidoresInstagram {
   configurar(opcoes = {}) {
     if (opcoes.maxRemocoes) this.maxRemocoesPorSessao = opcoes.maxRemocoes;
     if (opcoes.pausaACada) this.pausaACada = opcoes.pausaACada;
+    if (opcoes.cooldownACada) this.cooldownACada = opcoes.cooldownACada;
+    if (opcoes.cooldownDuracao) this.cooldownDuracao = opcoes.cooldownDuracao;
     if (opcoes.delays) Object.assign(this.delays, opcoes.delays);
 
     console.log("⚙️ Configurações atualizadas:", {
       maxRemocoes: this.maxRemocoesPorSessao,
       pausaACada: this.pausaACada,
+      cooldownACada: this.cooldownACada,
+      cooldownDuracao: `${this.cooldownDuracao / 1000 / 60} minutos`,
       delays: this.delays,
     });
   }
@@ -1038,6 +1075,43 @@ class RemoverSeguidoresInstagram {
             );
             await this.aguardar(pausaLonga);
           }
+
+          // Cooldown de 10 minutos a cada 50 unfollows
+          if (this.removidos % this.cooldownACada === 0) {
+            console.log(
+              `🛡️ COOLDOWN DE SEGURANÇA: Aguardando 10 minutos após ${this.removidos} unfollows...`
+            );
+            console.log("⏰ Isso ajuda a evitar detecção pela Meta");
+            console.log(
+              `🕐 Início do cooldown: ${new Date().toLocaleTimeString()}`
+            );
+
+            // Mostra progresso do cooldown
+            const intervalos = 20; // 20 intervalos de 30 segundos
+            const intervaloTempo = this.cooldownDuracao / intervalos;
+
+            for (let i = 1; i <= intervalos; i++) {
+              if (!this.isRunning) {
+                console.log("🛑 Cooldown interrompido pelo usuário");
+                break;
+              }
+              await this.aguardar(intervaloTempo);
+              const progresso = Math.round((i / intervalos) * 100);
+              const tempoRestante = Math.round(
+                (intervalos - i) * (intervaloTempo / 1000 / 60)
+              );
+              console.log(
+                `⏳ Cooldown: ${progresso}% completo (${tempoRestante} min restantes)`
+              );
+            }
+
+            if (this.isRunning) {
+              console.log(
+                `✅ Cooldown finalizado às ${new Date().toLocaleTimeString()}`
+              );
+              console.log("🔄 Retomando processo de unfollow...");
+            }
+          }
         } else {
           this.erros++;
           console.log(
@@ -1164,8 +1238,44 @@ RemoverSeguidoresInstagram.prototype.executarUnfollowLista = async function (
           );
           await this.aguardar(pausaLonga);
         }
-      }
 
+        // Cooldown de 10 minutos a cada 50 unfollows
+        if (this.removidos % this.cooldownACada === 0) {
+          console.log(
+            `🛡️ COOLDOWN DE SEGURANÇA: Aguardando 10 minutos após ${this.removidos} unfollows...`
+          );
+          console.log("⏰ Isso ajuda a evitar detecção pela Meta");
+          console.log(
+            `🕐 Início do cooldown: ${new Date().toLocaleTimeString()}`
+          );
+
+          // Mostra progresso do cooldown
+          const intervalos = 20; // 20 intervalos de 30 segundos
+          const intervaloTempo = this.cooldownDuracao / intervalos;
+
+          for (let i = 1; i <= intervalos; i++) {
+            if (!this.isRunning) {
+              console.log("🛑 Cooldown interrompido pelo usuário");
+              break;
+            }
+            await this.aguardar(intervaloTempo);
+            const progresso = Math.round((i / intervalos) * 100);
+            const tempoRestante = Math.round(
+              (intervalos - i) * (intervaloTempo / 1000 / 60)
+            );
+            console.log(
+              `⏳ Cooldown: ${progresso}% completo (${tempoRestante} min restantes)`
+            );
+          }
+
+          if (this.isRunning) {
+            console.log(
+              `✅ Cooldown finalizado às ${new Date().toLocaleTimeString()}`
+            );
+            console.log("🔄 Retomando processo de unfollow...");
+          }
+        }
+      }
       const delay = this.gerarDelay(
         this.delays.entreCliques.min,
         this.delays.entreCliques.max
@@ -1228,6 +1338,9 @@ console.log("� NOVO: Suporte a maiúsculas/minúsculas com Shift!");
 console.log("🧹 NOVO: Limpeza com triplo clique + eventos personalizados!");
 console.log("⏳ NOVO: Tempos variáveis e pausas ocasionais realísticas!");
 console.log("🛡️ Regra de segurança: 5 unfollows + pausa de 30-60s");
+console.log(
+  "🛡️ NOVA: Cooldown de 10 minutos a cada 50 unfollows para evitar Meta!"
+);
 console.log("");
 console.log(
   "⚠️ IMPORTANTE: Use com responsabilidade e respeite os termos do Instagram!"
