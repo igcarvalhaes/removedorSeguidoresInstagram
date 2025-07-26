@@ -1,0 +1,18 @@
+# Dados pessoais do Instagram
+instagram-*-data/
+instagram-*-*/
+
+# Arquivos temporários
+*.tmp
+*.temp
+
+# Logs
+*.log
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Dados sensíveis
+dados-instagram/
+backups/
