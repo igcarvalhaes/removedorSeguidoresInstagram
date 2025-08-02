@@ -1,6 +1,7 @@
 # Dados pessoais do Instagram
 instagram-*-data/
 instagram-*-*/
+instagram-*
 
 # Arquivos temporários
 *.tmp
